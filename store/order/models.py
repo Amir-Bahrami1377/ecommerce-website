@@ -10,9 +10,9 @@ class OffCode(Discount):
 
 
 class Order(BaseModel):
-    customer = models.ForeignKey(Customer)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     amount = models.IntegerField()
-    off_code = models.OneToOneField(OffCode, null=True, blank=True)
+    off_code = models.OneToOneField(OffCode, on_delete=models.CASCADE, null=True, blank=True)
     final_price = models.IntegerField()
 
 
@@ -21,4 +21,3 @@ class Basket(BaseModel):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     quantity = models.IntegerField()
     price = models.IntegerField()
-
