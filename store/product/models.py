@@ -23,11 +23,11 @@ class Category(BaseModel):
 
 class Product(BaseModel):
     name = models.CharField(max_length=30)
-    price = models.PositiveIntegerField(null=False)
+    price = models.PositiveIntegerField(null=False, default=0)
     description = models.CharField(max_length=120, null=True, blank=True)
     image = models.FileField(_('Image'), null=True, default=None, blank=True)
     discount = models.ForeignKey(Discount, on_delete=models.CASCADE, null=True, blank=True)
-    stock = models.IntegerField(null=False)
+    stock = models.IntegerField(null=False, default=0)
     brand = models.CharField(max_length=30, null=True, blank=True)
     category = models.ManyToManyField(Category)
 
