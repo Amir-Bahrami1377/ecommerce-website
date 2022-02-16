@@ -8,6 +8,9 @@ class Discount(BaseModel):
     value = models.PositiveIntegerField(null=False)
     max_price = models.PositiveIntegerField(null=True, blank=True)
 
+    def __str__(self):
+        return f'type:{self.type} ; value:{self.value}'
+
     def profit_value(self, price: int):
         if self.type == 'price':
             return min(self.value, price)
@@ -19,6 +22,9 @@ class Discount(BaseModel):
 class Category(BaseModel):
     name = models.CharField(max_length=30)
     parent_id = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
+
+    def __str__(self):
+        return f'category name:{self.name}'
 
 
 class Product(BaseModel):
@@ -34,14 +40,19 @@ class Product(BaseModel):
     class Meta:
         verbose_name = _('Products')
 
+    def __str__(self):
+        return f'product name: {self.name} ; price: {self.price} ; stock: {self.stock}'
+
     def product_price(self):
         if self.discount.is_active:
             return self.price - self.discount.profit_value(self.price)
         return self.price
 
     def add_discount(self, discount_id):
-        self.discount.pk = discount_id
+        self.discount = Discount.objects.get(pk=discount_id)
         self.save()
+        return True
 
     def del_discount(self):
         self.discount.deactivate()
+        return True
