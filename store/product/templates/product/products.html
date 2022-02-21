@@ -2,7 +2,8 @@
 
 {% block content %}
     {% for obj in object_list %}
-        <img src="{{ obj.image }}" alt="img">
-        {{ obj.name }}
+        <img src="{{ obj.image }}" alt="img"><br>
+        <p>{{ obj.name }}</p><br>
+        <p>price : {{ obj.price }} Toman</p>
     {% endfor %}
 {% endblock %}
