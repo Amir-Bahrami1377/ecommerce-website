@@ -1,0 +1,8 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+    {% for obj in object_list %}
+        <img src="{{ obj.image }}" alt="img">
+        {{ obj.name }}
+    {% endfor %}
+{% endblock %}
