@@ -3,7 +3,7 @@
 {% block content %}
     {% for obj in object_list %}
         <img src="{{ obj.image }}" alt="img"><br>
-        <p>{{ obj.name }}</p><br>
+        <a href="{% url 'product:product_detail' obj.slug %}">{{ obj.name }}</a><br>
         <p>price : {{ obj.price }} Toman</p>
     {% endfor %}
 {% endblock %}

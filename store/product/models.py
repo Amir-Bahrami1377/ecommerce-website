@@ -48,6 +48,7 @@ class Product(BaseModel):
     stock = models.IntegerField(null=False, default=0)
     brand = models.CharField(max_length=30, null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
+    slug = models.SlugField(null=True, blank=True)
 
     class Meta:
         verbose_name = _('Product')
