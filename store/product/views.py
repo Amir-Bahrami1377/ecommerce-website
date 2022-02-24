@@ -1,25 +1,23 @@
-from django.http import Http404, JsonResponse
-from django.shortcuts import render, HttpResponse, get_object_or_404
-from django.views.decorators.csrf import csrf_exempt
-from .serializers import ProductSerializer
-from .models import Product
+from django.shortcuts import render
+from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
+from product.models import Product
 
 
-@csrf_exempt
-def product_list_api(request):
-    if request.method == 'GET':
-        product_serializer = ProductSerializer(Product.objects.all(), many=True)
-        return JsonResponse({'data':product_serializer.data}, status=200)
+class ProductList(ListView):
+    template_name = 'product/products.html'
+    model = Product
+    paginate_by = 10
 
-    elif request.method == 'POST':
-        data = request.POST
-        product_serializer = ProductSerializer(data=data)
-        if product_serializer.is_valid():
-            new_product = product_serializer.save()
-            return JsonResponse({'new_product_id': new_product.id}, status=201)
-        else:
-            return JsonResponse({'error': product_serializer.errors}, status=400)
+    def get_queryset(self):
+        return Product.objects.filter(is_active=True)
 
-    else:
-        return JsonResponse({}, status=405)
+
+class ProductDetailView(DetailView):
+    template_name = 'product/product_detail.html'
+    slug_field = 'slug'
+    slug_url_kwarg = 'myslug'
+
+    def get_queryset(self):
+        return Product.objects.filter(slug=self.kwargs['myslug'])
 

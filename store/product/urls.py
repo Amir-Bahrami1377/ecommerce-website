@@ -1,6 +1,9 @@
+from product.views import ProductList, ProductDetailView
 from django.urls import path
-from .views import product_list_api
 
+
+app_name = 'product'
 urlpatterns = [
-    path('products/', product_list_api)
+    path('', ProductList.as_view(), name='products'),
+    path('<slug:myslug>/', ProductDetailView.as_view(), name='product_detail')
 ]

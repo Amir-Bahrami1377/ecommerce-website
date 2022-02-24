@@ -1,0 +1,8 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+    <img src="{{ object. }}" alt="img" style="width: 600px; height: 600px"><br>
+    <p>name : {{ object.name }}</p><br>
+    <h4>descriptions : {{ object.description }}</h4><br>
+    <p>price : {{ object.price }}</p>
+{% endblock %}
