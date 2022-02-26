@@ -88,11 +88,3 @@ class User(AbstractUser):
     delete_timestamp = models.DateTimeField(default=None, null=True, blank=True, editable=False)
 
     objects = MyUserManager()
-
-    def logic_delete(self):
-        """
-        create method for logical delete for this project
-        """
-        self.deleted = True
-        self.delete_timestamp = datetime.now()
-        self.save()
