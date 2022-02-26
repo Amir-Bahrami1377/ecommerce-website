@@ -20,3 +20,18 @@ class Address(BaseModel):
     province = models.CharField(max_length=120)
     postal_code = models.CharField(max_length=30)
     describe = models.CharField(max_length=120)
+
+
+class ProductManager(User):
+
+    """
+    model for add product manager
+    """
+
+    is_staff = True
+
+    class Meta:
+        verbose_name = 'Product manager'
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"

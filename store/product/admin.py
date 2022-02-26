@@ -3,10 +3,16 @@ from product.models import Product, Category, Discount, OffCode
 
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('name', 'stock', 'price', 'brand', 'category', 'slug')
+    list_display = ('name', 'stock', 'price', 'is_active', 'brand', 'category', 'slug')
     list_filter = ('name', 'brand', 'category')
     list_display_links = ('name',)
     ordering = ('name', 'brand')
+    list_editable = ('is_active',)
+    actions = ('deactivate',)
+
+    @admin.action(description='Make selected deactivate')
+    def deactivate(self, request, queryset):
+        queryset.update(is_active=False)
 
 
 admin.site.register(Product, ProductAdmin)
