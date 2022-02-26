@@ -35,3 +35,32 @@ class ProductManager(User):
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
+
+
+class Operator(User):
+
+    """
+    model for add operator
+    """
+
+    is_staff = True
+
+    class Meta:
+        verbose_name = 'operator'
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
+
+
+class Supervisor(User):
+    """
+    model for add supervisor manager
+    """
+
+    is_staff = True
+
+    class Meta:
+        verbose_name = 'supervisor'
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
