@@ -12,7 +12,7 @@ class CustomerRegisterView(View):
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            return redirect('product:products')
+            return redirect('product:home')
         else:
             return super().dispatch(request, *args, **kwargs)
 
@@ -26,7 +26,7 @@ class CustomerRegisterView(View):
             cd = form.cleaned_data
             Customer.objects.create_user(**cd)
             messages.success(request, 'your account created successfully', 'success')
-            return redirect('product:products')
+            return redirect('product:home')
         return render(request, 'account/register.html', {'form': form})
 
 
@@ -35,7 +35,7 @@ class CustomerLoginView(View):
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            return redirect('product:products')
+            return redirect('product:home')
         else:
             return super().dispatch(request, *args, **kwargs)
 
@@ -51,7 +51,7 @@ class CustomerLoginView(View):
             if user is not None:
                 login(request, user)
                 messages.success(request, 'you logged in successfully', 'success')
-                return redirect('product:products')
+                return redirect('product:home')
             messages.error(request, 'phone or password wrong', 'warning')
         return render(request, 'account/login.html', {'form': form})
 
@@ -60,4 +60,4 @@ class CustomerLogoutView(LoginRequiredMixin, View):
     def get(self, request):
         logout(request)
         messages.success(request, 'you logged out successfully', 'success')
-        return redirect('product:products')
+        return redirect('product:home')

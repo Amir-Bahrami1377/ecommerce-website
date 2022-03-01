@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views import View
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from product.models import Product
+from product.models import Product, Category
 
 
 class ProductList(ListView):
@@ -26,3 +26,8 @@ class ProductDetailView(DetailView):
 class HomeView(View):
     def get(self, request):
         return render(request, 'product/home.html', {'hi': 'hi'})
+
+
+class CategoryList(ListView):
+    template_name = 'product/category.html'
+    model = Category
