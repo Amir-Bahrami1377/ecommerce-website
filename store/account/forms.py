@@ -1,14 +1,14 @@
 from django import forms
+from account.models import Customer
 
 
-class CustomerRegistrationForm(forms.Form):
-    username = forms.CharField()
-    email = forms.EmailField()
-    password = forms.CharField()
-    first_name = forms.CharField()
-    last_name = forms.CharField()
+class CustomerRegistrationForm(forms.ModelForm):
+    class Meta:
+        model = Customer
+        fields = ('first_name', 'last_name', 'username', 'phone', 'email', 'password')
 
 
-class CustomerLoginForm(forms.Form):
-    username = forms.CharField()
-    password = forms.CharField()
+class CustomerLoginForm(forms.ModelForm):
+    class Meta:
+        model = Customer
+        fields = ('phone', 'password')

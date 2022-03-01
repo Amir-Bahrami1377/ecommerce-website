@@ -79,7 +79,7 @@ class MyUserManager(UserManager):
 class User(AbstractUser):
     USERNAME_FIELD = 'phone'
 
-    phone = models.CharField(verbose_name=_('phone'), help_text=_('enter phone number'), max_length=11, unique=True,
+    phone = models.CharField(verbose_name=_('phone'), help_text=_('enter phone number 09...'), max_length=11, unique=True,
                              null=False, blank=False)
 
     deleted = models.BooleanField(default=False)
