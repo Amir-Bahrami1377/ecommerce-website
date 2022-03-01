@@ -19,7 +19,7 @@ admin.site.register(Product, ProductAdmin)
 
 
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('name',)
+    list_display = ('name', 'parent')
     list_display_links = ('name',)
 
 

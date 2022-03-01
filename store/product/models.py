@@ -33,7 +33,7 @@ class OffCode(AbstractDiscount):
 
 class Category(BaseModel):
     name = models.CharField(max_length=30)
-    parent_id = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
+    parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return f'category name:{self.name}'
@@ -43,7 +43,7 @@ class Product(BaseModel):
     name = models.CharField(max_length=30)
     price = models.PositiveIntegerField(null=False, default=0)
     description = models.CharField(max_length=120, null=True, blank=True)
-    image = models.ImageField(_('Image'), upload_to='static/img', null=True, default=None, blank=True)
+    image = models.ImageField(_('Image'), upload_to='uploads/% Y/% m/% d/', null=True, default=None, blank=True)
     discount = models.ForeignKey(Discount, on_delete=models.CASCADE, null=True, blank=True)
     stock = models.IntegerField(null=False, default=0)
     brand = models.CharField(max_length=30, null=True, blank=True)

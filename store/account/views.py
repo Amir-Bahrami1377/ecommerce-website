@@ -24,7 +24,7 @@ class CustomerRegisterView(View):
         form = self.class_form(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
-            Customer.objects.create(**cd)
+            Customer.objects.create_user(**cd)
             messages.success(request, 'your account created successfully', 'success')
             return redirect('product:products')
         return render(request, 'account/register.html', {'form': form})
