@@ -8,7 +8,7 @@ from product.models import Product, Category
 class ProductList(ListView):
     template_name = 'product/products.html'
     model = Product
-    paginate_by = 10
+    paginate_by = 4
 
     def get_queryset(self):
         return Product.objects.filter(is_active=True)

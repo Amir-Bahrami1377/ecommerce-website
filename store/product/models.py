@@ -11,13 +11,6 @@ class AbstractDiscount(BaseModel):
     def __str__(self):
         return f'type:{self.type} ; value:{self.value}'
 
-    def profit_value(self, price: int):
-        if self.type == 'price':
-            return min(self.value, price)
-        else:
-            raw_profit = int((self.value / 100) * price)
-            return int(min(raw_profit, int(self.max_price))) if self.max_price else raw_profit
-
     class Meta:
         abstract = True
         ordering = ['-last_updated']
@@ -49,6 +42,15 @@ class Product(BaseModel):
     brand = models.CharField(max_length=30, null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
     slug = models.SlugField(null=True, blank=True)
+
+    @property
+    def profit_value(self):
+        if self.discount:
+            if self.discount.type == 'price':
+                return min(self.discount.value, self.price)
+            else:
+                raw_profit = int((self.discount.value / 100) * self.price)
+                return int(min(raw_profit, int(self.discount.max_price))) if self.discount.max_price else raw_profit
 
     class Meta:
         verbose_name = _('Product')
