@@ -1,16 +1,63 @@
-from django.shortcuts import render
-from django.urls import reverse_lazy
-
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from account.forms import CustomerRegistrationForm, CustomerLoginForm
 from django.views.generic import View
 from account.models import Customer
 
 
-class RegisterView(View):
-    def dispatch(self):
-        pass
+class CustomerRegisterView(View):
+    class_form = CustomerRegistrationForm
 
-    def get(self):
-        pass
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect('product:home')
+        else:
+            return super().dispatch(request, *args, **kwargs)
 
-    def post(self):
-        pass
+    def get(self, request):
+        form = self.class_form
+        return render(request, 'account/register.html', {'form': form})
+
+    def post(self, request):
+        form = self.class_form(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            Customer.objects.create_user(**cd)
+            messages.success(request, 'your account created successfully', 'success')
+            return redirect('product:home')
+        return render(request, 'account/register.html', {'form': form})
+
+
+class CustomerLoginView(View):
+    class_form = CustomerLoginForm
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect('product:home')
+        else:
+            return super().dispatch(request, *args, **kwargs)
+
+    def get(self, request):
+        form = self.class_form
+        return render(request, 'account/login.html', {'form': form})
+
+    def post(self, request):
+        form = self.class_form(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            user = authenticate(request, phone=cd['phone'], password=cd['password'])
+            if user is not None:
+                login(request, user)
+                messages.success(request, 'you logged in successfully', 'success')
+                return redirect('product:home')
+            messages.error(request, 'phone or password wrong', 'warning')
+        return render(request, 'account/login.html', {'form': form})
+
+
+class CustomerLogoutView(LoginRequiredMixin, View):
+    def get(self, request):
+        logout(request)
+        messages.success(request, 'you logged out successfully', 'success')
+        return redirect('product:home')

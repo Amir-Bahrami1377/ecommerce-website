@@ -1,0 +1,9 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+    {% for obj in object_list %}
+
+        <a href="{% url 'product:products' %}">{{ obj.name }}</a>
+
+    {% endfor %}
+{% endblock %}
