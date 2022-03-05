@@ -1,16 +1,16 @@
 from django.db import models
 from core.models import BaseModel
-from product.models import Product, Discount
-from account.models import Customer
+from product.models import Product, AbstractDiscount
+from account.models import Users
 
 
-class OffCode(Discount):
+class OffCode(AbstractDiscount):
     code = models.CharField(max_length=30, unique=True, null=False)
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True, blank=True)
+    owner = models.ForeignKey(Users, on_delete=models.CASCADE, null=True, blank=True)
 
 
 class Order(BaseModel):
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True, blank=True)
+    customer = models.ForeignKey(Users, on_delete=models.CASCADE, null=True, blank=True)
     amount = models.IntegerField(null=False, default=0)
     off_code = models.OneToOneField(OffCode, on_delete=models.CASCADE, null=True, blank=True)
     final_price = models.IntegerField(null=False, default=0)

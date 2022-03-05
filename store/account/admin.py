@@ -7,6 +7,7 @@ class UsersAdmin(admin.ModelAdmin):
     list_filter = ('first_name',)
     list_display_links = ('phone', 'first_name', 'last_name', 'email')
     ordering = ('first_name', 'last_name', 'phone', 'email')
+    filter_horizontal = ('groups', 'user_permissions')
 
 
 admin.site.register(Users, UsersAdmin)

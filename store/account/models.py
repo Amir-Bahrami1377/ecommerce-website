@@ -5,7 +5,7 @@ from core.models import User, BaseModel
 class Users(User):
 
     class Meta:
-        verbose_name = 'Users'
+        verbose_name = 'User'
 
     def addresses(self):
         return Address.objects.filter(customer__username=self.username)
@@ -21,4 +21,6 @@ class Address(BaseModel):
     postal_code = models.CharField(max_length=30)
     describe = models.CharField(max_length=120)
 
+    class Meta:
+        verbose_name = 'Adresse'
 
