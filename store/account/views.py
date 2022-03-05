@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from account.forms import CustomerRegistrationForm, CustomerLoginForm
 from django.views.generic import View
-from account.models import Customer
+from account.models import Users
 
 
 class CustomerRegisterView(View):
@@ -24,7 +24,7 @@ class CustomerRegisterView(View):
         form = self.class_form(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
-            Customer.objects.create_user(**cd)
+            Users.objects.create_user(**cd)
             messages.success(request, 'your account created successfully', 'success')
             return redirect('product:home')
         return render(request, 'account/register.html', {'form': form})
