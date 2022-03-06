@@ -23,7 +23,8 @@ class Category(BaseModel):
     parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
 
     class Meta:
-        verbose_name = 'Categorie'
+        verbose_name = 'Category'
+        verbose_name_plural = 'Categories'
 
     def __str__(self):
         return f'category name:{self.name}'
