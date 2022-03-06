@@ -10,6 +10,18 @@ class AbstractDiscount(BaseModel):
     value = models.PositiveIntegerField(null=False)
     max_price = models.PositiveIntegerField(null=True, blank=True)
 
+    def profit_value(self, price: int):
+        """
+        Calculate and Return the profit of the discount
+        :param price: int (item value)
+        :return: profit
+        """
+        if self.type == 'price':
+            return min(self.value, price)
+        else:  # percent
+            raw_profit = int((self.value / 100) * price)
+            return int(min(raw_profit, int(self.max_price))) if self.max_price else raw_profit
+
     def __str__(self):
         return f'type:{self.type} ; value:{self.value}'
 
@@ -40,14 +52,14 @@ class Product(BaseModel):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
     slug = models.SlugField(null=True, blank=True)
 
-    @property
-    def profit_value(self):
-        if self.discount:
-            if self.discount.type == 'price':
-                return min(self.discount.value, self.price)
-            else:
-                raw_profit = int((self.discount.value / 100) * self.price)
-                return int(min(raw_profit, int(self.discount.max_price))) if self.discount.max_price else raw_profit
+    # @property
+    # def profit_value(self):
+    #     if self.discount:
+    #         if self.discount.type == 'price':
+    #             return min(self.discount.value, self.price)
+    #         else:
+    #             raw_profit = int((self.discount.value / 100) * self.price)
+    #             return int(min(raw_profit, int(self.discount.max_price))) if self.discount.max_price else raw_profit
 
     def save(self, *args, **kwargs):
         self.slug = slugify(f"{self.name} {self.brand}")
@@ -59,11 +71,6 @@ class Product(BaseModel):
 
     def __str__(self):
         return f'product name: {self.name} ; price: {self.price} ; stock: {self.stock}'
-
-    def product_price(self):
-        if self.discount.is_active:
-            return self.price - self.discount.profit_value(self.price)
-        return self.price
 
 
 class Discount(AbstractDiscount):
