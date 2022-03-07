@@ -33,6 +33,11 @@ class AbstractDiscount(BaseModel):
 class Category(BaseModel):
     name = models.CharField(max_length=30)
     parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
+    slug = models.SlugField(null=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
 
     class Meta:
         verbose_name = 'Category'

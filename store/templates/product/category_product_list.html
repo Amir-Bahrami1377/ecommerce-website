@@ -1,0 +1,24 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+    {% for obj in products %}
+        <img src="{{ obj.image.url }}" alt="img" style="width: 400px; height: 400px"><br>
+        <a href="{% url 'product:product_detail' obj.slug %}">{{ obj.name }}</a><br>
+        <p>price : {{ obj.price }} Toman</p>
+    {% endfor %}
+
+{#    <nav aria-label="Page navigation example">#}
+{#        <ul class="pagination">#}
+{#            {% if page_obj.has_previous %}#}
+{#                <li class="page-item"><a class="page-link" href="?page=1">First</a></li>#}
+{#                <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>#}
+{#            {% endif %}#}
+{#            <li class="page-item"><a class="page-link" href="#">{{ page_obj.number }}</a></li>#}
+{#            {% if page_obj.has_next %}#}
+{#                <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>#}
+{#                <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last</a></li>#}
+{#            {% endif %}#}
+{#        </ul>#}
+{#    </nav>#}
+
+{% endblock %}

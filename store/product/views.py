@@ -17,10 +17,10 @@ class ProductList(ListView):
 class ProductDetailView(DetailView):
     template_name = 'product/product_detail.html'
     slug_field = 'slug'
-    slug_url_kwarg = 'myslug'
+    slug_url_kwarg = 'prodslug'
 
     def get_queryset(self):
-        return Product.objects.filter(slug=self.kwargs['myslug'])
+        return Product.objects.filter(slug=self.kwargs['prodslug'])
 
 
 class HomeView(View):
@@ -31,3 +31,14 @@ class HomeView(View):
 class CategoryList(ListView):
     template_name = 'product/category.html'
     model = Category
+
+
+class CategoryProductList(View):
+
+    def get(self, request, catslug):
+        products = Product.objects.filter(category__slug=catslug)
+        if products:
+            return render(request, 'product/category_product_list.html', context={'products': products})
+        else:
+            products = Product.objects.filter(category__parent__slug=catslug)
+            return render(request, 'product/category_product_list.html', context={'products': products})
