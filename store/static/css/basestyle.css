@@ -1,0 +1,20 @@
+.jumbotron {
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #e9ecef;
+}
+
+.fixed-header, .fixed-footer {
+    width: 100%;
+    background: #333;
+    padding: 10px 8px;
+    color: #fff;
+}
+
+.fixed-header {
+    top: 0;
+}
+
+.fixed-footer {
+    bottom: 0;
+}
