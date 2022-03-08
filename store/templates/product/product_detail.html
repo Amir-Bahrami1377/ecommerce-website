@@ -2,11 +2,13 @@
 {% load one %}
 
 {% block content %}
-    <img src="{{ object.image.url }}" alt="img" style="width: 600px; height: 600px"><br>
-    <p>name : {{ object.name }}</p><br>
-    <h4>descriptions : {{ object.description }}</h4><br>
-    <h4>Brand : {{ object.brand }}</h4><br>
-    <h4>Stock : {{ object.stock }}</h4><br>
-    <p>price : {{ object.price }}</p>
-    <p>discount: {% discounts object.slug %}</p>
+    <div class="card" style="display: inline-block; padding: 8px; margin: 8px; width: 620px">
+        <img src="{{ object.image.url }}" alt="img" style="width: 600px; height: 600px"><br>
+        <p>name : {{ object.name }}</p><br>
+        <h4>descriptions : {{ object.description }}</h4><br>
+        <h4>Brand : {{ object.brand }}</h4><br>
+        <h4>Stock : {{ object.stock }}</h4><br>
+        <p>price : {{ object.price }}</p>
+     <p>discount: {% discounts object.slug %}</p>
+    </div>
 {% endblock %}

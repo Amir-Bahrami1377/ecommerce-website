@@ -2,9 +2,11 @@
 
 {% block content %}
     {% for obj in page_obj %}
-        <img src="{{ obj.image.url }}" alt="img" style="width: 400px; height: 400px"><br>
-        <a href="{% url 'product:product_detail' obj.slug %}">{{ obj.name }}</a><br>
-        <p>price : {{ obj.price }} Toman</p>
+        <div class="card" style="display: inline-block; padding: 8px; margin: 8px; width: 420px">
+            <img src="{{ obj.image.url }}" alt="img" style="width: 400px; height: 400px"><br>
+            <a href="{% url 'product:product_detail' obj.slug %}" style="text-decoration: none">{{ obj.name }}</a><br>
+            <p>price : {{ obj.price }} Toman</p>
+        </div>
     {% endfor %}
 
     <nav aria-label="Page navigation example">

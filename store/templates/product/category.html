@@ -3,7 +3,7 @@
 {% block content %}
     {% for obj in object_list %}
 
-        <a href="{% url 'product:category_product_list' obj.slug %}">{{ obj.name }}</a>
+        <a href="{% url 'product:category_product_list' obj.slug %}" style="text-decoration: none">{{ obj.name }}</a>
 
     {% endfor %}
 {% endblock %}
