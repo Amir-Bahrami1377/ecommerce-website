@@ -17,7 +17,7 @@ class Order(BaseModel):
 
     def add_amount(self):
         self.amount = 0
-        for item in Basket.objects.filter(order=self.pk, is_active=True):
+        for item in OrderItem.objects.filter(order=self.pk, is_active=True):
             self.amount += item.basket_item_price()
         self.save()
 
@@ -29,7 +29,7 @@ class Order(BaseModel):
         self.save()
 
 
-class Basket(BaseModel):
+class OrderItem(BaseModel):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     quantity = models.IntegerField()

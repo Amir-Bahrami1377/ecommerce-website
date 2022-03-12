@@ -1,9 +1,9 @@
 from rest_framework import serializers
-from .models import Address, Customer
+from .models import Address, Users
 
 
 class AddressSerializer(serializers.ModelSerializer):
-    model = Customer
+    model = Users
     fields = '__all__'
 
 

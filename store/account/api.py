@@ -1,8 +1,7 @@
 from rest_framework.response import Response
 from rest_framework import permissions, generics, authentication
 from rest_framework.views import APIView
-
-from .models import Customer, Address
+from .models import Users, Address
 from .serializers import AddressSerializer, CustomerSerializer
 
 
@@ -24,7 +23,7 @@ class AddressListApi(APIView):
 class CustomerListApi(APIView):
 
     def get(self, request):
-        customer_serializer = CustomerSerializer(Customer.objects.all(), many=True)
+        customer_serializer = CustomerSerializer(Users.objects.all(), many=True)
         return Response(customer_serializer, status=200)
 
     def post(self, request):
@@ -38,6 +37,6 @@ class CustomerListApi(APIView):
 
 class CustomerDetailApi(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CustomerSerializer
-    queryset = Customer.objects.all()
+    queryset = Users.objects.all()
     permission_classes = [permissions.IsAuthenticated]
     authentication_classes = [authentication.BasicAuthentication]
