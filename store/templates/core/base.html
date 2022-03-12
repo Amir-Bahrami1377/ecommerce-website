@@ -19,7 +19,7 @@
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             {% if request.user.is_authenticated %}
-                <a class="dropdown-item" href="{% url 'accounts:customer_logout' %}">profile</a>
+                <a class="dropdown-item" href="{% url 'accounts:customer_profile' %}">profile</a>
                 <a class="dropdown-item" href="{% url 'accounts:customer_logout' %}">logout</a>
             {% else %}
                 <a class="dropdown-item" href="{% url 'accounts:customer_register' %}">register</a>

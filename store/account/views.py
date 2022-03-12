@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, get_user
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -61,3 +61,12 @@ class CustomerLogoutView(LoginRequiredMixin, View):
         logout(request)
         messages.success(request, 'you logged out successfully', 'success')
         return redirect('product:home')
+
+
+class CustomerProfileView(LoginRequiredMixin, View):
+    def get(self, request):
+        phone = get_user(request)
+        user = Users.objects.get(phone=phone)
+        print(user)
+        return render(request, 'account/profile.html', {'user': user})
+
