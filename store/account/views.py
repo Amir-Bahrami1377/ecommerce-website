@@ -31,8 +31,6 @@ class CustomerRegisterView(View):
 
 
 class CustomerLoginView(View):
-    class_form = CustomerLoginForm
-
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             return redirect('product:home')
@@ -40,12 +38,14 @@ class CustomerLoginView(View):
             return super().dispatch(request, *args, **kwargs)
 
     def get(self, request):
-        form = self.class_form
+        form = CustomerLoginForm()
         return render(request, 'account/login.html', {'form': form})
 
     def post(self, request):
-        form = self.class_form(request.POST)
+        form = CustomerLoginForm(request.POST)
+        print(form.errors.as_data())
         if form.is_valid():
+            print('11111111111')
             cd = form.cleaned_data
             user = authenticate(request, phone=cd['phone'], password=cd['password'])
             if user is not None:

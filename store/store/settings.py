@@ -140,6 +140,6 @@ AUTH_USER_MODEL = 'core.User'
 
 LOGIN_URL = 'customer:login'
 
-LOGIN_REDIRECT_URL = 'product:products'
+LOGIN_REDIRECT_URL = 'product:home'
 
-LOGOUT_REDIRECT_URL = 'product:products'
+LOGOUT_REDIRECT_URL = 'product:home'

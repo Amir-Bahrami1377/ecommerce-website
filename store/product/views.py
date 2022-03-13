@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views import View
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from product.models import Product, Category
+from product.models import Product, Category, Discount
 
 
 class ProductList(ListView):
@@ -25,7 +25,11 @@ class ProductDetailView(DetailView):
 
 class HomeView(View):
     def get(self, request):
-        return render(request, 'product/home.html', {'hi': 'hi'})
+        discounts = Discount.objects.filter(is_active=True)
+        products = []
+        for discount in discounts:
+            products.append(discount.product)
+        return render(request, 'product/home.html', {'products': products})
 
 
 class CategoryList(ListView):

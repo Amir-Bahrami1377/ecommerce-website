@@ -23,7 +23,6 @@ class CustomerRegistrationForm(forms.ModelForm):
         return phone
 
 
-class CustomerLoginForm(forms.ModelForm):
-    class Meta:
-        model = Users
-        fields = ('phone', 'password')
+class CustomerLoginForm(forms.Form):
+    phone = forms.CharField(max_length=50)
+    password = forms.CharField(widget=forms.PasswordInput)

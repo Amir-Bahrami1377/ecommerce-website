@@ -1,5 +1,21 @@
 {% extends 'core/base.html' %}
+{% load one %}
 
 {% block content %}
-    <h1>Home page !!!</h1>
+    <div class="container-fluid">
+        <h2 style="color: firebrick">New Offers</h2>
+        <div class="row">
+            {% for product in products %}
+                <div class="card" style="width: 18rem">
+                    <img src="{{ product.image.url }}" alt="img" style="width: 15rem; height: 15rem">
+                    <div class="card-body">
+                        <h4>{{ product.name }}</h4>
+                        <p>price : {{ product.price }} Toman</p>
+                        <p>discount value: {% discounts product.slug %}</p>
+                        <a class="btn btn-primary" href="{% url 'product:product_detail' product.slug %}" style="text-decoration: none">more info</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}
