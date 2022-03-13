@@ -20,6 +20,7 @@ class Address(BaseModel):
     province = models.CharField(max_length=120)
     postal_code = models.CharField(max_length=30)
     describe = models.CharField(max_length=120)
+    is_default = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = 'Adresse'

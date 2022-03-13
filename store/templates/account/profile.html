@@ -2,6 +2,21 @@
 
 {% block content %}
 
-    <h1>profile {{ user.phone }}</h1>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm" style="background-color: grey">
+                <h1>user profile info :</h1>
+                <h4>first name : {{ user.first_name }}</h4>
+                <h4>last name : {{ user.last_name }}</h4>
+                <h4>phone : {{ user.phone }}</h4>
+                <h4>email : {{ user.email }}</h4>
+            </div>
+            <div class="col-sm">
+                <button type="button" class="btn btn-secondary">update info</button>
+                <button type="button" class="btn btn-secondary">order history</button>
+            </div>
+        </div>
+    </div><br>
+    <div class="container-fluid" id="profile-empty-dive"></div>
 
 {% endblock %}

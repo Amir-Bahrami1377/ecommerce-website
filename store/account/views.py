@@ -67,6 +67,5 @@ class CustomerProfileView(LoginRequiredMixin, View):
     def get(self, request):
         phone = get_user(request)
         user = Users.objects.get(phone=phone)
-        print(user)
         return render(request, 'account/profile.html', {'user': user})
 
