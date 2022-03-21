@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from account.forms import CustomerRegistrationForm, CustomerLoginForm
 from django.views.generic import View
-from account.models import Users
+from account.models import User
 
 
 class CustomerRegisterView(View):
@@ -24,7 +24,7 @@ class CustomerRegisterView(View):
         form = self.class_form(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
-            Users.objects.create_user(**cd)
+            User.objects.create_user(**cd)
             messages.success(request, 'your account created successfully', 'success')
             return redirect('product:home')
         return render(request, 'account/register.html', {'form': form})
@@ -43,9 +43,7 @@ class CustomerLoginView(View):
 
     def post(self, request):
         form = CustomerLoginForm(request.POST)
-        print(form.errors.as_data())
         if form.is_valid():
-            print('11111111111')
             cd = form.cleaned_data
             user = authenticate(request, phone=cd['phone'], password=cd['password'])
             if user is not None:
@@ -66,6 +64,5 @@ class CustomerLogoutView(LoginRequiredMixin, View):
 class CustomerProfileView(LoginRequiredMixin, View):
     def get(self, request):
         phone = get_user(request)
-        user = Users.objects.get(phone=phone)
+        user = User.objects.get(phone=phone)
         return render(request, 'account/profile.html', {'user': user})
-

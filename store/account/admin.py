@@ -1,8 +1,8 @@
 from django.contrib import admin
-from account.models import Users, Address
+from account.models import User, Address
 
 
-class UsersAdmin(admin.ModelAdmin):
+class UserAdmin(admin.ModelAdmin):
     list_display = ('first_name', 'last_name', 'phone', 'email')
     list_filter = ('first_name',)
     list_display_links = ('phone', 'first_name', 'last_name', 'email')
@@ -10,7 +10,7 @@ class UsersAdmin(admin.ModelAdmin):
     filter_horizontal = ('groups', 'user_permissions')
 
 
-admin.site.register(Users, UsersAdmin)
+admin.site.register(User, UserAdmin)
 
 
 class AddressAdmin(admin.ModelAdmin):

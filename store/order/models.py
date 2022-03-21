@@ -3,16 +3,16 @@ from django.db import models
 from django.utils.text import slugify
 from core.models import BaseModel
 from product.models import Product, AbstractDiscount
-from account.models import Users, Address
+from account.models import User, Address
 
 
 class OffCode(AbstractDiscount):
     verify_code = models.CharField(max_length=30, unique=True, null=False)
-    owner = models.ForeignKey(Users, on_delete=models.CASCADE, null=True, blank=True)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 
 
 class Order(BaseModel):
-    owner = models.ForeignKey(Users, on_delete=models.CASCADE, null=True, blank=True)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     owner_address = models.ForeignKey(Address, on_delete=models.CASCADE, null=True, blank=True)
     off_code = models.CharField(max_length=50, null=True, blank=True)
     slug = models.SlugField(unique=True, null=True, blank=True)

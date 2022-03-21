@@ -1,9 +1,7 @@
 from django.db import models
 from django.utils import timezone
-from datetime import datetime
 from django.utils.translation import gettext_lazy as _
-from django.contrib.auth.models import AbstractUser, UserManager
-
+from django.contrib.auth.models import UserManager
 from core.manager import BaseManager
 
 
@@ -74,17 +72,3 @@ class MyUserManager(UserManager):
         rewrite get_queryset for access to all objects and data in this project
         """
         return super().get_queryset()
-
-
-class User(AbstractUser):
-    USERNAME_FIELD = 'phone'
-
-    phone = models.CharField(verbose_name=_('phone'), help_text=_('enter phone number 09...'), max_length=11, unique=True,
-                             null=False, blank=False)
-
-    deleted = models.BooleanField(default=False)
-    create_timestamp = models.DateTimeField(auto_now_add=True)
-    modify_timestamp = models.DateTimeField(auto_now=True)
-    delete_timestamp = models.DateTimeField(default=None, null=True, blank=True, editable=False)
-
-    objects = MyUserManager()
